@@ -81,6 +81,12 @@ export class AppComponent {
 
 ```
 
+### Instaling [angular2-mdl](https://github.com/mseemann/angular2-mdl)
+
+```bash
+npm install angular2-mdl --save
+```
+
 
 ### Troubleshooting
 

@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from '../../firebase.conf';
 
+import { MdlModule } from "angular2-mdl";
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -16,7 +18,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    MdlModule
   ],
   providers: [],
   bootstrap: [AppComponent]
