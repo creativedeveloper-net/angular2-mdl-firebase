@@ -2,6 +2,7 @@
 
 # firebase config
 firebase.conf.ts
+.firebaserc
 
 # compiled output
 /dist

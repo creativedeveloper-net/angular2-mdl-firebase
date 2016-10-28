@@ -1,5 +1,7 @@
 # Angular2MdlFirebase
 
+This is a demo Angular 2 app based on angular2-mdl and angularfire2, click [here](https://angular2-mdl-firebase.firebaseapp.com/) to see a demo
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.
 
 ### Installing angular-cli
@@ -81,9 +83,9 @@ export class AppComponent {
 
 ```
 
-### Troubleshooting
+#### Troubleshooting
 
-#### 1. Cannot find namespace 'firebase'.
+1. Cannot find namespace 'firebase'.
 
 If you run into this error while trying to invoke `ng serve`, open `src/tsconfig.json` and add the "types" array as follows:
 
@@ -103,7 +105,7 @@ If you run into this error while trying to invoke `ng serve`, open `src/tsconfig
 }
 ```
 
-#### 2. Cannot find name 'require' (This is just a temporary workaround for the Angular CLI).
+2. Cannot find name 'require' (This is just a temporary workaround for the Angular CLI).
 
 If you run into this error while trying to invoke `ng serve`, open `src/typings.d.ts` and add the following two entries as follows:
 
@@ -118,6 +120,16 @@ declare var module: any;
 npm install angular2-mdl --save
 ```
 
+### Init Firebase
+
+Run `firebase init` and follow instructions
+
+### Deploying
+
+```bash
+ng build
+firebase deploy
+```
 
 
 
