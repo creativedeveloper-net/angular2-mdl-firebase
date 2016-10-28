@@ -81,13 +81,6 @@ export class AppComponent {
 
 ```
 
-### Instaling [angular2-mdl](https://github.com/mseemann/angular2-mdl)
-
-```bash
-npm install angular2-mdl --save
-```
-
-
 ### Troubleshooting
 
 #### 1. Cannot find namespace 'firebase'.
@@ -117,6 +110,12 @@ If you run into this error while trying to invoke `ng serve`, open `src/typings.
 ```ts
 declare var require: any;
 declare var module: any;
+```
+
+### Instaling [angular2-mdl](https://github.com/mseemann/angular2-mdl)
+
+```bash
+npm install angular2-mdl --save
 ```
 
 

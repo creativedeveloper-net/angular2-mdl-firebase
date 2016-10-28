@@ -1,3 +1,25 @@
-<h1>
-  {{title}}
-</h1>
+<mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed>
+  <mdl-layout-header>
+    <mdl-layout-header-row>
+      <mdl-layout-title>Angular2-MDL-Firebase demo app</mdl-layout-title>
+      <mdl-layout-spacer></mdl-layout-spacer>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link">Link</a>
+        <a class="mdl-navigation__link">Link</a>
+        <a class="mdl-navigation__link">Link</a>
+      </nav>
+    </mdl-layout-header-row>
+  </mdl-layout-header>
+  <mdl-layout-drawer>
+    <mdl-layout-title>Title</mdl-layout-title>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link">Link</a>
+      <a class="mdl-navigation__link">Link</a>
+      <a class="mdl-navigation__link">Link</a>
+    </nav>
+  </mdl-layout-drawer>
+  <mdl-layout-content>
+    <!-- Your content goes here -->
+  </mdl-layout-content>
+</mdl-layout>
