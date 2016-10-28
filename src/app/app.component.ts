@@ -8,6 +8,25 @@ import { AngularFire } from 'angularfire2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
-  constructor(af: AngularFire) { }
+  loggedIn = false;
+  user = {};
+
+  constructor(private af: AngularFire) {
+    this.af.auth.subscribe(user => {
+      if (user) {
+        this.loggedIn = true;
+        this.user = user.auth;
+      } else {
+        this.loggedIn = false;
+        this.user = {};
+      }
+    });
+  }
+
+  login() {
+    this.af.auth.login();
+  }
+  logout() {
+    this.af.auth.logout();
+  }
 }

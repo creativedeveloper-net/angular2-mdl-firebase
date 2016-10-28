@@ -3,12 +3,12 @@
     <mdl-layout-header-row>
       <mdl-layout-title>Angular2-MDL-Firebase demo app</mdl-layout-title>
       <mdl-layout-spacer></mdl-layout-spacer>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link">Link</a>
-        <a class="mdl-navigation__link">Link</a>
-        <a class="mdl-navigation__link">Link</a>
-      </nav>
+      <button *ngIf="!loggedIn" (click)="login()"
+        mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
+        Sign in
+      </button>
+      <img *ngIf="loggedIn" (click)="logout()" [src]="user.photoURL"
+        mdl-tooltip="Logout" alt="user.displayName" class="app-avatar">
     </mdl-layout-header-row>
   </mdl-layout-header>
   <mdl-layout-drawer>
