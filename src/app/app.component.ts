@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AngularFire } from 'angularfire2';
+import { MdlSnackbarService } from 'angular2-mdl';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent {
   loggedIn = false;
   user = {};
 
-  constructor(private af: AngularFire) {
+  constructor(private af: AngularFire,
+    private mdlSnackbarService: MdlSnackbarService) {
     this.af.auth.subscribe(user => {
       if (user) {
         this.loggedIn = true;
@@ -28,5 +30,12 @@ export class AppComponent {
   }
   logout() {
     this.af.auth.logout();
+  }
+  showAddChatRoomDialog() {
+    if (!this.loggedIn) {
+      this.mdlSnackbarService.showToast('Please sign in first');
+    } else {
+      this.mdlSnackbarService.showToast('It doesn\'t do anything yet');
+    }
   }
 }
