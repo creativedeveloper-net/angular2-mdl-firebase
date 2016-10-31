@@ -3,8 +3,8 @@
     <mdl-layout-header-row>
       <mdl-layout-title>Angular2-MDL-Firebase demo app</mdl-layout-title>
       <mdl-layout-spacer></mdl-layout-spacer>
-      <button *ngIf="!loggedIn" (click)="login()"
-        mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
+      <button *ngIf="!loggedIn" (click)="login()" mdl-button
+        mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
         Sign in
       </button>
       <img *ngIf="loggedIn" (click)="logout()" [src]="user.photoURL"
@@ -21,9 +21,26 @@
   </mdl-layout-drawer>
   <mdl-layout-content>
     <!-- Your content goes here -->
-    <mdl-button (click)="showAddChatRoomDialog()" mdl-button-type="fab" mdl-colored="accent"
-      mdl-ripple class="app-add-button">
+    <mdl-button (click)="showAddChatRoomDialog()" mdl-button-type="fab"
+      mdl-colored="accent" mdl-ripple class="app-add-button">
       <mdl-icon>add</mdl-icon>
     </mdl-button>
+    <mdl-dialog #addChatRoomDialog
+      [mdl-dialog-config]="{clickOutsideToClose: true}">
+      <h3 class="mdl-dialog__title">Add new chat room</h3>
+      <p>
+        It doesn't do anything yet
+      </p>
+      <!--
+      <div class="mdl-dialog__content">
+        <mdl-textfield type="text" label="Username" [(ngModel)]="username" floating-label autofocus></mdl-textfield>
+      </div>
+    -->
+      <div class="mdl-dialog__actions">
+        <!-- <button mdl-button (click)="saveUser()" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button> -->
+        <button mdl-button (click)="addChatRoomDialog.close()" mdl-ripple>Cancel</button>
+      </div>
+
+    </mdl-dialog>
   </mdl-layout-content>
 </mdl-layout>

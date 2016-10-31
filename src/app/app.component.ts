@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { AngularFire } from 'angularfire2';
 import { MdlSnackbarService } from 'angular2-mdl';
@@ -11,6 +11,8 @@ import { MdlSnackbarService } from 'angular2-mdl';
 export class AppComponent {
   loggedIn = false;
   user = {};
+
+  @ViewChild('addChatRoomDialog') addChatRoomDialog: any;
 
   constructor(private af: AngularFire,
     private mdlSnackbarService: MdlSnackbarService) {
@@ -35,7 +37,7 @@ export class AppComponent {
     if (!this.loggedIn) {
       this.mdlSnackbarService.showToast('Please sign in first');
     } else {
-      this.mdlSnackbarService.showToast('It doesn\'t do anything yet');
+      this.addChatRoomDialog.show();
     }
   }
 }
