@@ -1,7 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { MdlSnackbarService } from 'angular2-mdl';
+
+import { ChatRoom } from './chat-rooms/index';
+import { SelectOption } from './shared/index';
+import { User } from './users/index';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +13,15 @@ import { MdlSnackbarService } from 'angular2-mdl';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  chatRooms: FirebaseListObservable<ChatRoom[]>;
+  chatRoomsFilter = 'public';
+  chatRommsFliterOptions: SelectOption[] = [
+    new SelectOption('Public', 'public'),
+    new SelectOption('Created by me', 'created_by_me')
+  ];
   loggedIn = false;
-  user = {};
+  newChatRoom = new ChatRoom;
+  user: User;
 
   @ViewChild('addChatRoomDialog') addChatRoomDialog: any;
 
@@ -22,16 +33,27 @@ export class AppComponent {
         this.user = user.auth;
       } else {
         this.loggedIn = false;
-        this.user = {};
       }
     });
+    this.subscribeChatRooms();
   }
-
+  filterChatRooms(value: any) {
+    this.subscribeChatRooms();
+  }
   login() {
     this.af.auth.login();
   }
   logout() {
     this.af.auth.logout();
+  }
+  saveChatRoom() {
+    if (this.newChatRoom.name.length > 0) {
+      this.newChatRoom.author = this.user.email;
+      this.chatRooms.push(this.newChatRoom);
+      this.addChatRoomDialog.close();
+    } else {
+      this.mdlSnackbarService.showToast('Please enter chat room name');
+    }
   }
   showAddChatRoomDialog() {
     if (!this.loggedIn) {
@@ -39,5 +61,24 @@ export class AppComponent {
     } else {
       this.addChatRoomDialog.show();
     }
+  }
+  subscribeChatRooms() {
+    this.chatRooms = this.af.database.list('/chatRooms');
+    /*
+    if (this.chatRoomsFilter === 'public') {
+      this.chatRooms = this.af.database.list('/chatRooms', {
+        query: {
+          orderByChild: 'public',
+          equalTo: true
+        }
+      });
+    } else if (this.chatRoomsFilter === 'created_by_me') {
+      this.chatRooms = this.af.database.list('/chatRooms', {
+        query: {
+          orderByChild: 'author',
+          equalTo: this.user.email
+        }
+      });
+    }*/
   }
 }

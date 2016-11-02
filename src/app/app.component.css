@@ -9,3 +9,9 @@
   height: 40px;
   width: 40px;
 }
+.app-content {
+  margin: 20px;
+}
+.app-dialog {
+  width: 360px;
+}

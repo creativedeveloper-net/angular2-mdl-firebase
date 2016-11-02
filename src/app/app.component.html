@@ -19,8 +19,27 @@
       <a class="mdl-navigation__link">Link</a>
     </nav>
   </mdl-layout-drawer>
-  <mdl-layout-content>
+  <mdl-layout-content class="app-content">
     <!-- Your content goes here -->
+    <h2>Chat rooms</h2>
+    <div *ngIf="loggedIn">
+      <select [(ngModel)]="chatRoomsFilter" (ngModelChange)="filterChatRooms()">
+        <option *ngFor="let option of chatRommsFliterOptions"
+          [ngValue]=option.value >{{option.name}}</option>
+      </select>
+    </div>
+    <mdl-list>
+      <mdl-list-item *ngFor="let chatRoom of chatRooms | async"
+        mdl-ripple lines="2">
+        <mdl-list-item-primary-content>
+          <span>{{chatRoom.name}}</span>
+          <mdl-list-item-sub-title>
+            {{chatRoom.description}}
+          </mdl-list-item-sub-title>
+        </mdl-list-item-primary-content>
+      </mdl-list-item>
+    </mdl-list>
+
     <mdl-button (click)="showAddChatRoomDialog()" mdl-button-type="fab"
       mdl-colored="accent" mdl-ripple class="app-add-button">
       <mdl-icon>add</mdl-icon>
@@ -28,19 +47,23 @@
     <mdl-dialog #addChatRoomDialog
       [mdl-dialog-config]="{clickOutsideToClose: true}">
       <h3 class="mdl-dialog__title">Add new chat room</h3>
-      <p>
-        It doesn't do anything yet
-      </p>
-      <!--
       <div class="mdl-dialog__content">
-        <mdl-textfield type="text" label="Username" [(ngModel)]="username" floating-label autofocus></mdl-textfield>
+        <mdl-switch [(ngModel)]="newChatRoom.public" mdl-ripple>
+          Public
+        </mdl-switch>
+        <mdl-textfield type="text" label="Name" [(ngModel)]="newChatRoom.name"
+          floating-label autofocus></mdl-textfield>
+        <mdl-textfield label="Description..."
+          [(ngModel)]="newChatRoom.description" rows="3"
+          floating-label></mdl-textfield>
       </div>
-    -->
       <div class="mdl-dialog__actions">
-        <!-- <button mdl-button (click)="saveUser()" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button> -->
-        <button mdl-button (click)="addChatRoomDialog.close()" mdl-ripple>Cancel</button>
+        <button mdl-button (click)="saveChatRoom()" mdl-button-type="raised"
+          mdl-colored="primary" mdl-ripple>Save</button>
+        <button mdl-button (click)="addChatRoomDialog.close()" mdl-ripple>
+          Cancel
+        </button>
       </div>
-
     </mdl-dialog>
   </mdl-layout-content>
 </mdl-layout>
