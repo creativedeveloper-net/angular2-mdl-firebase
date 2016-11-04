@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { MdlSnackbarService } from 'angular2-mdl';
 
-import { ChatRoom } from './chat-rooms/index';
+import { Chat } from './chats/index';
 import { SelectOption } from './shared/index';
 import { User } from './users/index';
 
@@ -13,17 +13,17 @@ import { User } from './users/index';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  chatRooms: FirebaseListObservable<ChatRoom[]>;
-  chatRoomsFilter = 'public';
+  chats: FirebaseListObservable<Chat[]>;
+  chatsFilter = 'public';
   chatRommsFliterOptions: SelectOption[] = [
     new SelectOption('Public', 'public'),
     new SelectOption('Created by me', 'created_by_me')
   ];
   loggedIn = false;
-  newChatRoom = new ChatRoom;
+  newChat = new Chat;
   user: User;
 
-  @ViewChild('addChatRoomDialog') addChatRoomDialog: any;
+  @ViewChild('addChatDialog') addChatDialog: any;
 
   constructor(private af: AngularFire,
     private mdlSnackbarService: MdlSnackbarService) {
@@ -31,14 +31,16 @@ export class AppComponent {
       if (user) {
         this.loggedIn = true;
         this.user = user.auth;
+        this.subscribeChats();
+        console.log(this.user);
       } else {
         this.loggedIn = false;
+        this.subscribeChats();
       }
     });
-    this.subscribeChatRooms();
   }
-  filterChatRooms(value: any) {
-    this.subscribeChatRooms();
+  filterChats(value: any) {
+    this.subscribeChats();
   }
   login() {
     this.af.auth.login();
@@ -46,39 +48,37 @@ export class AppComponent {
   logout() {
     this.af.auth.logout();
   }
-  saveChatRoom() {
-    if (this.newChatRoom.name.length > 0) {
-      this.newChatRoom.author = this.user.email;
-      this.chatRooms.push(this.newChatRoom);
-      this.addChatRoomDialog.close();
+  saveChat() {
+    if (this.newChat.data.name.length > 0) {
+      this.newChat.author = this.user.email;
+      this.chats.push(this.newChat);
+      this.addChatDialog.close();
     } else {
-      this.mdlSnackbarService.showToast('Please enter chat room name');
+      this.mdlSnackbarService.showToast('Please enter chat name');
     }
   }
-  showAddChatRoomDialog() {
+  showAddChatDialog() {
     if (!this.loggedIn) {
       this.mdlSnackbarService.showToast('Please sign in first');
     } else {
-      this.addChatRoomDialog.show();
+      this.addChatDialog.show();
     }
   }
-  subscribeChatRooms() {
-    this.chatRooms = this.af.database.list('/chatRooms');
-    /*
-    if (this.chatRoomsFilter === 'public') {
-      this.chatRooms = this.af.database.list('/chatRooms', {
+  subscribeChats() {
+    if (this.chatsFilter === 'public') {
+      this.chats = this.af.database.list('/chats', {
         query: {
           orderByChild: 'public',
           equalTo: true
         }
       });
-    } else if (this.chatRoomsFilter === 'created_by_me') {
-      this.chatRooms = this.af.database.list('/chatRooms', {
+    } else if (this.chatsFilter === 'created_by_me') {
+      this.chats = this.af.database.list('/chats', {
         query: {
           orderByChild: 'author',
           equalTo: this.user.email
         }
       });
-    }*/
+    }
   }
 }

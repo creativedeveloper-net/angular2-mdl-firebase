@@ -21,46 +21,46 @@
   </mdl-layout-drawer>
   <mdl-layout-content class="app-content">
     <!-- Your content goes here -->
-    <h2>Chat rooms</h2>
+    <h2>Chats</h2>
     <div *ngIf="loggedIn">
-      <select [(ngModel)]="chatRoomsFilter" (ngModelChange)="filterChatRooms()">
+      <select [(ngModel)]="chatsFilter" (ngModelChange)="filterChats()">
         <option *ngFor="let option of chatRommsFliterOptions"
           [ngValue]=option.value >{{option.name}}</option>
       </select>
     </div>
     <mdl-list>
-      <mdl-list-item *ngFor="let chatRoom of chatRooms | async"
+      <mdl-list-item *ngFor="let chat of chats | async"
         mdl-ripple lines="2">
         <mdl-list-item-primary-content>
-          <span>{{chatRoom.name}}</span>
+          <span>{{chat.data.name}}</span>
           <mdl-list-item-sub-title>
-            {{chatRoom.description}}
+            {{chat.data.description}}
           </mdl-list-item-sub-title>
         </mdl-list-item-primary-content>
       </mdl-list-item>
     </mdl-list>
 
-    <mdl-button (click)="showAddChatRoomDialog()" mdl-button-type="fab"
+    <mdl-button (click)="showAddChatDialog()" mdl-button-type="fab"
       mdl-colored="accent" mdl-ripple class="app-add-button">
       <mdl-icon>add</mdl-icon>
     </mdl-button>
-    <mdl-dialog #addChatRoomDialog
+    <mdl-dialog #addChatDialog
       [mdl-dialog-config]="{clickOutsideToClose: true}">
-      <h3 class="mdl-dialog__title">Add new chat room</h3>
+      <h3 class="mdl-dialog__title">Add new chat</h3>
       <div class="mdl-dialog__content">
-        <mdl-switch [(ngModel)]="newChatRoom.public" mdl-ripple>
+        <mdl-switch [(ngModel)]="newChat.public" mdl-ripple>
           Public
         </mdl-switch>
-        <mdl-textfield type="text" label="Name" [(ngModel)]="newChatRoom.name"
+        <mdl-textfield type="text" label="Name" [(ngModel)]="newChat.data.name"
           floating-label autofocus></mdl-textfield>
         <mdl-textfield label="Description..."
-          [(ngModel)]="newChatRoom.description" rows="3"
+          [(ngModel)]="newChat.data.description" rows="3"
           floating-label></mdl-textfield>
       </div>
       <div class="mdl-dialog__actions">
-        <button mdl-button (click)="saveChatRoom()" mdl-button-type="raised"
+        <button mdl-button (click)="saveChat()" mdl-button-type="raised"
           mdl-colored="primary" mdl-ripple>Save</button>
-        <button mdl-button (click)="addChatRoomDialog.close()" mdl-ripple>
+        <button mdl-button (click)="addChatDialog.close()" mdl-ripple>
           Cancel
         </button>
       </div>

@@ -1,7 +1,17 @@
 {
   "rules": {
-    ".indexOn": ["author", "public"],
-    ".read": true,
-    ".write": "auth != null"
+    "chats": {
+      ".indexOn": ["author", "public"],
+      ".write": "auth != null",
+      ".read": true,
+      "$chatId": {
+        "public": {
+          ".read": true
+        },
+        "data": {
+          ".read": "data.parent().child('public').val() === true"
+        }
+      }
+    }
   }
 }
